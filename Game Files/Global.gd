@@ -1,4 +1,5 @@
 extends Node
+# This is Global.gd
 
 var current_scene = null
 
