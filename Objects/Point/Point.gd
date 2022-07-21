@@ -3,6 +3,7 @@ extends StaticBody2D
 
 var ToolModeToggle := false		# toggle instantiating ways on click
 var sosedi := []				# where can we go from here
+var newWay = null
 
 signal WayButPressed(Point)
 
@@ -15,7 +16,7 @@ func _on_TextureButton_pressed() -> void:
 	print("Button ", self, " pressed")
 	if OS.has_feature("editor") and ToolModeToggle:	# if we are in editor / in game, launched from editor and togglemode == true
 		print("Entering tool part of a Point...")
-		var newWay = null
+		
 		if(!get_node("../../GameManager").lastP):		# start if there is no start
 			newWay = Line2D.new()
 #			newWay.points.resize(0)		# clearing (not worked, btw)
