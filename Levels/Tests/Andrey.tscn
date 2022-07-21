@@ -10,6 +10,7 @@ _data = {
 }
 
 [node name="Andrey Test" type="Node2D"]
+position = Vector2( 0, 1 )
 
 [node name="GameManager" parent="." instance=ExtResource( 3 )]
 
@@ -21,11 +22,8 @@ position = Vector2( 209, 258 )
 [node name="Point2" parent="Points" instance=ExtResource( 1 )]
 position = Vector2( 1537, 258 )
 
-[node name="Point3" parent="Points" instance=ExtResource( 1 )]
-position = Vector2( 906, 747 )
-
 [node name="Point4" parent="Points" instance=ExtResource( 1 )]
-position = Vector2( 906, 747 )
+position = Vector2( 780, 746 )
 
 [node name="Ways" type="Node2D" parent="."]
 

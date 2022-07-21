@@ -1,7 +1,7 @@
 tool
 extends EditorScript
 # This is WayTool.gd
-# CAREFUL!!! Use properly (currently only script is in print mode)
+# CAREFUL!!! Use properly (currently script is only in print mode)
 
 export var Way = preload("res://Objects/Way.tscn")
 
