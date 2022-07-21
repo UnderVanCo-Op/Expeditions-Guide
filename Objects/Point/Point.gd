@@ -1,24 +1,52 @@
 extends StaticBody2D
 # This is Point.gd
 
+var ToolModeToggle := false		# toggle instantiating ways on click
+var sosedi := []				# where can we go from here
+
 signal WayButPressed(Point)
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("ready of a point")
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
 
 
 func _on_TextureButton_pressed() -> void:
 	print("Button ", self, " pressed")
-	emit_signal("WayButPressed", self)
+	if OS.has_feature("editor") and ToolModeToggle:	# if we are in editor / in game, launched from editor and togglemode == true
+		print("Entering tool part of a Point...")
+		var newWay = null
+		if(!get_node("../../GameManager").lastP):		# start if there is no start
+			newWay = Line2D.new()
+#			newWay.points.resize(0)		# clearing (not worked, btw)
+			newWay.default_color = Color(255, 254, 246, 255)		# Color
+			newWay.texture = load("res://Objects/WayTile3.png")		# Texture
+			newWay.texture_mode = 1									# Tile mode
+			newWay.points = PoolVector2Array([self.position])		# Trick to make this thing work
+			print("newWay size after all actions: ", newWay.points.size())	# test print
+			
+			get_node("../../Lines").add_child(newWay)				# add to scene
+			newWay.set_owner(get_tree().current_scene)	# required to make the node visible in the Scene tree dock and persist changes made by the tool script to the saved scene file.
+			get_node("../../GameManager").lastP = self				# update last point in GM
+			
+			pass
+		else:				# end (there was start)
+			var lP = get_node("../../GameManager").lastP	# get start in variable
+			lP.sosedi.append(self)		# append self to start sosedi's
+			sosedi.append(lP)			# append start to self sosedi's
+			newWay = lP.newWay			# get ref to the same line2d
+			var arr : PoolVector2Array = newWay.points	# trick, again, to make this all work
+			arr.append(self.position)	# add end point pos
+			newWay.points = arr			# end of a trick
+			print("newWay size after all actions2: ", newWay.points.size())	# test print 2
+			
+			get_node("../../GameManager").lastP = null		# update last point in GM to null (since there is no start now)
+			
+			# resaving scene with 2 point for line
+			var packed_scene = PackedScene.new()
+			packed_scene.pack(get_tree().get_current_scene())
+			ResourceSaver.save(get_tree().current_scene.filename, packed_scene)
+			pass
+	else:
+		emit_signal("WayButPressed", self)
 	pass # Replace with function body.

@@ -3,11 +3,15 @@ extends Node2D
 
 var playerScene = preload("res://Objects/Player/Player.tscn")
 var player
-var isPMoving := false
-var interp := 0.0
-var StartPosP := Vector2.ZERO
-var EndPos := Vector2.ZERO
+var isPMoving := false			# shows if the player is moving at the moment
+var interp := 0.0				# interpolation value for Player movement
+var StartPosP := Vector2.ZERO	# start position for the same interpolation
+var EndPos := Vector2.ZERO		# end position for same also
+var lastP = null				# ref to last points for Tool, for making sosedi, updates from Points
 
+
+
+# ---------- Starting methods ---------------------------------------------------------------------------
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	call_deferred("SignalConnector")
@@ -25,16 +29,28 @@ func SignalConnector() -> void:
 	pass
 
 
+func StartGame() -> void:
+	player = playerScene.instance()
+	get_parent().add_child(player)
+	player.position = get_global_mouse_position()
+	pass
+
+
+
+# ---------- Processing methods -------------------------------------------------------------------------
 func _physics_process(delta: float) -> void:
 	if(isPMoving):
 		interp += delta * 0.7
 		player.position = StartPosP.linear_interpolate(EndPos, interp)
 		if(interp >= 1):
 			print("Target reached, stopping movement")
+			interp = 0.0		# just in case
 			isPMoving = false
 	pass
 
 
+
+# ---------- Other methods ------------------------------------------------------------------------------
 func s_WayButPressed(Point : StaticBody2D) -> void:
 	print("GM: signal received from ", Point)
 	
@@ -47,8 +63,3 @@ func s_WayButPressed(Point : StaticBody2D) -> void:
 	pass
 
 
-func StartGame() -> void:
-	player = playerScene.instance()
-	get_parent().add_child(player)
-	player.position = get_global_mouse_position()
-	pass

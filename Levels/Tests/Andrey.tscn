@@ -10,6 +10,7 @@ _data = {
 }
 
 [node name="Andrey Test" type="Node2D"]
+position = Vector2( 0, 1 )
 
 [node name="GameManager" parent="." instance=ExtResource( 3 )]
 
@@ -21,8 +22,8 @@ position = Vector2( 209, 258 )
 [node name="Point2" parent="Points" instance=ExtResource( 1 )]
 position = Vector2( 1537, 258 )
 
-[node name="Point3" parent="Points" instance=ExtResource( 1 )]
-position = Vector2( 906, 747 )
+[node name="Point4" parent="Points" instance=ExtResource( 1 )]
+position = Vector2( 780, 746 )
 
 [node name="Ways" type="Node2D" parent="."]
 
@@ -40,9 +41,3 @@ begin_cap_mode = 1
 end_cap_mode = 1
 
 [node name="Lines" type="Node2D" parent="."]
-
-[node name="Line2D" type="Line2D" parent="Lines"]
-points = PoolVector2Array( 209, 259, 906, 747 )
-default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
-texture = ExtResource( 4 )
-texture_mode = 1
