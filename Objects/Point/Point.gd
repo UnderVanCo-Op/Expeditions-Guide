@@ -30,10 +30,11 @@ func _on_TextureButton_pressed() -> void:
 			get_node("../../GameManager").lastPTool = self				# update last point in GM
 			
 			pass
+		
 		else:				# end (there was start)
 			var lP = get_node("../../GameManager").lastPTool	# get start in variable
-#			lP.sosedi.append(self)		# append self to start sosedi's
-#			sosedi.append(lP)			# append start to self sosedi's
+			lP.sosedi.append(name)		# append self to start sosedi's
+			sosedi.append(lP.name)			# append start to self sosedi's
 			newWay = lP.newWay			# get ref to the same line2d
 			var arr : PoolVector2Array = newWay.points	# trick, again, to make this all work
 			arr.append(self.position)	# add end point pos
@@ -46,6 +47,8 @@ func _on_TextureButton_pressed() -> void:
 			var packed_scene = PackedScene.new()
 			packed_scene.pack(get_tree().get_current_scene())
 			ResourceSaver.save(get_tree().current_scene.filename, packed_scene)
+			
+			get_node("../../GameManager").SaveGame()
 			pass
 	else:
 		emit_signal("WayButPressed", self)

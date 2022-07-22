@@ -8,8 +8,9 @@ var interp := 0.0					# interpolation value for Player movement
 var StartPosP := Vector2.ZERO		# start position for the same interpolation
 var EndPos := Vector2.ZERO			# end position for same also
 var lastPTool = null				# ref to last points for Tool, for making sosedi, updates from Points
-var ToolModeToggle := false			# toggle instantiating ways on click
+var ToolModeToggle := true			# toggle instantiating ways on click
 var PlayerPoint = null				# ref to Point on which Player is standing
+var SaveMInst : SaveMaster
 
 # ---------- Starting methods ---------------------------------------------------------------------------
 # Called when the node enters the scene tree for the first time.
@@ -54,7 +55,6 @@ func _physics_process(delta: float) -> void:
 
 
 # ---------- Signals income methods----------------------------------------------------------------------
-
 func s_WayButPressed(_point : StaticBody2D) -> void:
 #	print("GM: signal received from ", _point)
 	if(!isPMoving):
@@ -74,5 +74,21 @@ func s_WayButPressed(_point : StaticBody2D) -> void:
 	else:
 		print("GM: Player is already moving, wait!")
 	pass
+
+
+# ---------- Save methods -------------------------------------------------------------------------------
+func SaveGame() -> void:
+	
+	var data := {}
+	for p in get_node("../Points").get_children():
+		data[p.name] = p.sosedi
+		pass
+	print("GM: data: ", data)
+	
+#	if(SaveMaster.save_exists()):
+#
+#		pass
+	pass
+
 
 # ---------- Other methods ------------------------------------------------------------------------------

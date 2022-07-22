@@ -17,7 +17,7 @@ position = Vector2( 0, 1 )
 [node name="Points" type="Node2D" parent="."]
 
 [node name="Start" parent="Points" instance=ExtResource( 1 )]
-position = Vector2( 209, 258 )
+position = Vector2( 209, 261 )
 
 [node name="Point3" parent="Points" instance=ExtResource( 1 )]
 position = Vector2( 1228, 237 )
