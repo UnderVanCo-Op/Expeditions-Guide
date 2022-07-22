@@ -21,7 +21,7 @@ func Save_paths(_data : Dictionary) -> void:
 	PathsFile.close()
 	
 
-func Load_paths() -> void:
+func Load_paths():
 	
 	var error := PathsFile.open(PathsPath, File.READ)
 	if error != OK:
@@ -35,8 +35,7 @@ func Load_paths() -> void:
 	
 	var data : Dictionary = JSON.parse(text).result
 	print("SaveMaster: received data: ", data)
-	
-	pass
+	return data
 
 
 
