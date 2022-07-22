@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "SaveMaster",
+"language": "GDScript",
+"path": "res://SaveMaster.gd"
+} ]
+_global_script_class_icons={
+"SaveMaster": ""
+}
+
 [application]
 
 config/name="Expeditions Guide"

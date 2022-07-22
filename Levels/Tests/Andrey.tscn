@@ -16,14 +16,17 @@ position = Vector2( 0, 1 )
 
 [node name="Points" type="Node2D" parent="."]
 
-[node name="Point" parent="Points" instance=ExtResource( 1 )]
-position = Vector2( 209, 258 )
+[node name="Start" parent="Points" instance=ExtResource( 1 )]
+position = Vector2( 209, 261 )
+
+[node name="Point3" parent="Points" instance=ExtResource( 1 )]
+position = Vector2( 1228, 237 )
 
 [node name="Point2" parent="Points" instance=ExtResource( 1 )]
-position = Vector2( 1537, 258 )
+position = Vector2( 571, 794 )
 
 [node name="Point4" parent="Points" instance=ExtResource( 1 )]
-position = Vector2( 780, 746 )
+position = Vector2( 1371, 921 )
 
 [node name="Ways" type="Node2D" parent="."]
 
@@ -41,3 +44,21 @@ begin_cap_mode = 1
 end_cap_mode = 1
 
 [node name="Lines" type="Node2D" parent="."]
+
+[node name="@@2" type="Line2D" parent="Lines"]
+points = PoolVector2Array( 571, 794, 1371, 921 )
+default_color = Color( 255, 254, 246, 255 )
+texture = ExtResource( 4 )
+texture_mode = 1
+
+[node name="@@3" type="Line2D" parent="Lines"]
+points = PoolVector2Array( 209, 261, 571, 794 )
+default_color = Color( 255, 254, 246, 255 )
+texture = ExtResource( 4 )
+texture_mode = 1
+
+[node name="@@2" type="Line2D" parent="Lines"]
+points = PoolVector2Array( 1371, 921, 1228, 237 )
+default_color = Color( 255, 254, 246, 255 )
+texture = ExtResource( 4 )
+texture_mode = 1
