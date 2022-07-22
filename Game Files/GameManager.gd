@@ -8,9 +8,9 @@ var interp := 0.0					# interpolation value for Player movement
 var StartPosP := Vector2.ZERO		# start position for the same interpolation
 var EndPos := Vector2.ZERO			# end position for same also
 var lastPTool = null				# ref to last points for Tool, for making sosedi, updates from Points
-var ToolModeToggle := true			# toggle instantiating ways on click
+export var ToolModeToggle := true			# toggle instantiating ways on click
 var PlayerPoint = null				# ref to Point on which Player is standing
-var SaveMInst : SaveMaster
+var SaveMInst := SaveMaster.new()
 
 # ---------- Starting methods ---------------------------------------------------------------------------
 # Called when the node enters the scene tree for the first time.
@@ -85,9 +85,12 @@ func SaveGame() -> void:
 		pass
 	print("GM: data: ", data)
 	
-#	if(SaveMaster.save_exists()):
-#
-#		pass
+#	if(SaveMInst.DoesSaveExists()):
+##		SaveMInst.Load_paths()
+#		print("GM: Save exists, doing nothing for now...")
+#	else:
+	SaveMInst.Save_paths(data)
+		
 	pass
 
 

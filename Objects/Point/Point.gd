@@ -34,7 +34,7 @@ func _on_TextureButton_pressed() -> void:
 		else:				# end (there was start)
 			var lP = get_node("../../GameManager").lastPTool	# get start in variable
 			lP.sosedi.append(name)		# append self to start sosedi's
-			sosedi.append(lP.name)			# append start to self sosedi's
+			sosedi.append(lP.name)		# append start to self sosedi's
 			newWay = lP.newWay			# get ref to the same line2d
 			var arr : PoolVector2Array = newWay.points	# trick, again, to make this all work
 			arr.append(self.position)	# add end point pos

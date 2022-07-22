@@ -11,17 +11,15 @@ func DoesSaveExists() -> bool:
 	return PathsFile.file_exists(PathsPath)
 
 
-func Save_paths() -> void:
+func Save_paths(_data : Dictionary) -> void:
 	var error := PathsFile.open(PathsPath, File.WRITE)
 	if error != OK:
 		printerr("SaveMaster: Could not open the file %s. Aborting load operation. Error code: %s" % [PathsPath, error])
 		return
+	var json_str := JSON.print(_data)
+	PathsFile.store_string(json_str)
+	PathsFile.close()
 	
-	var data := {}
-	
-	
-	pass
-
 
 func Load_paths() -> void:
 	
