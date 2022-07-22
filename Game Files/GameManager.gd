@@ -10,6 +10,7 @@ var StartPosP := Vector2.ZERO		# start position for the same interpolation
 var EndPos := Vector2.ZERO			# end position for same also
 var lastPTool = null				# ref to last points for Tool, for making sosedi, updates from Points
 var PlayerPoint = null				# ref to Point on which Player is standing
+var nextPPoint = null
 var SaveMInst := SaveMaster.new()	# instance of a saving class (for paths only for now)
 
 # ---------- Starting methods ---------------------------------------------------------------------------
@@ -49,6 +50,7 @@ func _physics_process(delta: float) -> void:
 		if(interp >= 1):
 			print("GM: Target reached, stopping movement")
 			interp = 0.0		# just in case
+			PlayerPoint = nextPPoint
 			isPMoving = false
 	
 
@@ -59,11 +61,12 @@ func s_WayButPressed(_point : StaticBody2D) -> void:
 		if(_point == PlayerPoint):
 			push_warning("GM_WARN: Can not move to the same Point")
 			return
-		if(_point in PlayerPoint.sosedi):
+		if(_point.name in PlayerPoint.sosedi):
 			print("GM: moving to the adjacent Point")
 			interp = 0.0
 			StartPosP = player.position
 			EndPos = _point.position
+			nextPPoint = _point
 			isPMoving = true
 			print("GM: starting movement, StartPosP:", StartPosP, " EndPos:", EndPos)
 		else:
@@ -85,9 +88,8 @@ func LoadGame() -> void:
 			return
 		for p in get_node("../Points").get_children():
 			if(p.name in _data.keys()):				# if point is in JSON
-				p.sosedi.append(_data[p.name])		# add in list
+				p.sosedi.append_array(_data[p.name])		# add in list
 				print("GM: Loaded some sosed: ", _data[p.name])
-			pass
 	else:
 		printerr("GM: no save exists, so no paths was loaded")
 		

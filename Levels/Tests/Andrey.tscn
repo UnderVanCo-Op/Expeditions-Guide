@@ -56,3 +56,9 @@ points = PoolVector2Array( 209, 261, 571, 794 )
 default_color = Color( 255, 254, 246, 255 )
 texture = ExtResource( 4 )
 texture_mode = 1
+
+[node name="@@2" type="Line2D" parent="Lines"]
+points = PoolVector2Array( 1371, 921, 1228, 237 )
+default_color = Color( 255, 254, 246, 255 )
+texture = ExtResource( 4 )
+texture_mode = 1
