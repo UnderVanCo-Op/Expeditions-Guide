@@ -15,12 +15,16 @@ var SaveMInst := SaveMaster.new()
 # ---------- Starting methods ---------------------------------------------------------------------------
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	call_deferred("SignalConnector")
+	
 	PlayerPoint = get_node_or_null("../Points/Start")
 	if(!PlayerPoint):
 		push_error("GM_ERROR: No start in scene!")
+	
+	LoadGame()
+	
+	call_deferred("SignalConnector")
 	call_deferred("StartGame")
-	pass # Replace with function body.
+	
 
 
 func SignalConnector() -> void:
@@ -39,7 +43,6 @@ func StartGame() -> void:
 	player.position = PlayerPoint.position
 #	player.position = get_global_mouse_position()
 	pass
-
 
 
 # ---------- Processing methods -------------------------------------------------------------------------
@@ -76,7 +79,17 @@ func s_WayButPressed(_point : StaticBody2D) -> void:
 	pass
 
 
-# ---------- Save methods -------------------------------------------------------------------------------
+# ---------- Save and Load methods ----------------------------------------------------------------------
+func LoadGame() -> void:
+	if(SaveMInst.DoesSaveExists()):
+#		SaveMInst.Load_paths()
+		print("GM: Save exists, doing nothing for now...")
+	else:
+		printerr("GM: no save exist, so no paths was loaded")
+	pass
+
+
+
 func SaveGame() -> void:
 	
 	var data := {}
@@ -85,10 +98,7 @@ func SaveGame() -> void:
 		pass
 	print("GM: data: ", data)
 	
-#	if(SaveMInst.DoesSaveExists()):
-##		SaveMInst.Load_paths()
-#		print("GM: Save exists, doing nothing for now...")
-#	else:
+
 	SaveMInst.Save_paths(data)
 		
 	pass

@@ -44,3 +44,15 @@ begin_cap_mode = 1
 end_cap_mode = 1
 
 [node name="Lines" type="Node2D" parent="."]
+
+[node name="@@2" type="Line2D" parent="Lines"]
+points = PoolVector2Array( 571, 794, 1371, 921 )
+default_color = Color( 255, 254, 246, 255 )
+texture = ExtResource( 4 )
+texture_mode = 1
+
+[node name="@@3" type="Line2D" parent="Lines"]
+points = PoolVector2Array( 209, 261, 571, 794 )
+default_color = Color( 255, 254, 246, 255 )
+texture = ExtResource( 4 )
+texture_mode = 1
