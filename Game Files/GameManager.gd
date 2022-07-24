@@ -79,7 +79,7 @@ func s_WayButPressed(_point : StaticBody2D) -> void:
 # ---------- Save and Load methods ----------------------------------------------------------------------
 # Called in _ready
 func LoadGame() -> void:
-	# Paths work
+	# Paths work (script part)
 	if(SaveMInst.DoesSaveExists()):
 		print("GM: Save for paths exists, loading...")
 		var _data = SaveMInst.Load_paths()
@@ -101,11 +101,11 @@ func SaveGame() -> void:
 	# Paths work
 	var data := {}
 	for p in get_node("../Points").get_children():
-		data[p.name] = p.sosedi
-		pass
+		if(p.sosedi):
+			data[p.name] = p.sosedi
 	print("GM: data to save: ", data)
 	SaveMInst.Save_paths(data)
-	
+#	get_tree().reload_current_scene()
 	# Other (to be done in future)
 
 
