@@ -45,11 +45,13 @@ func _on_TextureButton_pressed() -> void:
 			get_node("../../GameManager").lastPTool = null		# update last point in GM to null (since there is no start now)
 			
 			# resaving scene with 2 point for line
-			var packed_scene = PackedScene.new()
-			packed_scene.pack(get_tree().get_current_scene())
-			ResourceSaver.save(get_tree().current_scene.filename, packed_scene)
+#			var packed_scene = PackedScene.new()
+#			packed_scene.pack(get_tree().get_current_scene())
+#			ResourceSaver.save(get_tree().current_scene.filename, packed_scene)
 			
 			get_node("../../GameManager").SaveGame()
+			
+#			get_tree().reload_current_scene()
 			pass
 	else:
 		emit_signal("WayButPressed", self)

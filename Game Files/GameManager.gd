@@ -105,7 +105,7 @@ func SaveGame() -> void:
 			data[p.name] = p.sosedi
 	print("GM: data to save: ", data)
 	SaveMInst.Save_paths(data)
-	
+#	get_tree().reload_current_scene()
 	# Other (to be done in future)
 
 

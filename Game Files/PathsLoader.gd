@@ -2,15 +2,22 @@ tool
 extends Node2D
 
 var PathScene = preload("res://Objects/Way.tscn")
-var togglePathLoading = true
+var togglePathLoading = true		# will load paths from save file on scene reload (CTRL+R), REPLACING others
 
 
 func _ready() -> void:
-	if(!togglePathLoading):
-		print("PL: Ready of a PathsLoader, but Path Loading is off")
+	if not Engine.editor_hint:
+		print("PL: in game, so quitting for now")
 		return
-	print("PL: Ready of a PathsLoader, Path Loading is on")
-	# Paths work (visual part, mostly copied from SaveMaster)
+	if(!togglePathLoading):
+		print("PL: Ready of a PathsLoader, but Path Loading is off, returning...")
+		return
+	print("PL: Ready of a PathsLoader, Path Loading is on; deleting Lines node contents...")
+	
+	for child in get_node("../../Lines").get_children():	# removing existing paths
+		child.queue_free()
+	
+	# Paths work (visual part)
 	var PathsPath = "res://Paths.json"
 	var PathsFile := File.new()
 	
@@ -32,8 +39,9 @@ func _ready() -> void:
 		printerr("PL: could not get Points node, no Paths will be drawn")
 		return
 	
-	for p in ps.get_children():
-		if(p.name in data.keys()):
+	var ParList := []
+	for p in ps.get_children():		# for each node of a point in Points
+		if(p.name in data.keys()):	# if this point is in save file
 			print("\nPL: Found some point in saved data: ", p.name, ", data: ", data[p.name])
 			var content = data[p.name] as Array
 			for adjps in content:
@@ -42,20 +50,15 @@ func _ready() -> void:
 				if(!_adjp):
 					printerr("PL: could not get adjacent point from save, do you have old save file?")
 					return
-#				newWay.points.resize(0)		# clearing (not worked, btw)
-#				newWay.default_color = Color(255, 254, 246, 255)		# Color
-#				newWay.texture = load("res://Objects/WayTile3.png")		# Texture
-#				newWay.texture_mode = 1									# Tile mode
+				
+				if([p.position, _adjp.position] in ParList or [_adjp.position, p.position] in ParList):
+					print("PL: this way is already on the map, skipping...")
+					continue	# (for next adjpoint of this point) 
+				
+				ParList.append([p.position, _adjp.position])
 				var newWay = PathScene.instance()
 				newWay.points = PoolVector2Array([p.position, _adjp.position])		# Trick to make this thing work
 #				print("PL: newWay size after all actions: ", newWay.points.size())	# test print
 				
 				get_node("../../Lines").add_child(newWay)				# add to scene
-				newWay.set_owner(get_tree().current_scene)	# required to make the node visible in the Scene tree dock and persist changes made by the tool script to the saved scene file.
-				
-				
-			
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+				newWay.set_owner(get_tree().edited_scene_root)	# required to make the node visible in the Scene tree dock and persist changes made by the tool script to the saved scene file.

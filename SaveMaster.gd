@@ -33,7 +33,15 @@ func Load_paths():
 	var text = PathsFile.get_as_text()
 	PathsFile.close()
 	
-	var data : Dictionary = JSON.parse(text).result
+	var res = JSON.parse(text).result
+	if(!res):
+		print("SM: error parsing JSON: null, returning...")
+		return
+#	if res.error != OK:
+#		print("SM: error parsing JSON, text: ", res.error, " returning...")
+#		return
+	
+	var data : Dictionary = res
 	print("SaveMaster: received data: ", data)
 	return data
 
