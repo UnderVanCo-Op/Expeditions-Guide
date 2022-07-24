@@ -28,6 +28,9 @@ position = Vector2( 571, 794 )
 [node name="Point4" parent="Points" instance=ExtResource( 1 )]
 position = Vector2( 1371, 921 )
 
+[node name="Point5" parent="Points" instance=ExtResource( 1 )]
+position = Vector2( 1717, 472 )
+
 [node name="Ways" type="Node2D" parent="."]
 
 [node name="Path2D" type="Path2D" parent="Ways"]
@@ -59,6 +62,18 @@ texture_mode = 1
 
 [node name="@@2" type="Line2D" parent="Lines"]
 points = PoolVector2Array( 1371, 921, 1228, 237 )
+default_color = Color( 255, 254, 246, 255 )
+texture = ExtResource( 4 )
+texture_mode = 1
+
+[node name="@@2" type="Line2D" parent="Lines"]
+points = PoolVector2Array( 1717, 472, 1228, 237 )
+default_color = Color( 255, 254, 246, 255 )
+texture = ExtResource( 4 )
+texture_mode = 1
+
+[node name="@@2" type="Line2D" parent="Lines"]
+points = PoolVector2Array( 1371, 921, 1717, 472 )
 default_color = Color( 255, 254, 246, 255 )
 texture = ExtResource( 4 )
 texture_mode = 1
