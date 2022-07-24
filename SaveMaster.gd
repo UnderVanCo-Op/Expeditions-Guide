@@ -1,6 +1,6 @@
 extends Reference
 class_name SaveMaster
-
+# This is SaveMaster.gd, low-level save work script
 const PathsPath = "res://Paths.json"
 
 var version := 1
@@ -11,6 +11,7 @@ func DoesSaveExists() -> bool:
 	return PathsFile.file_exists(PathsPath)
 
 
+# Low-level here
 func Save_paths(_data : Dictionary) -> void:
 	var error := PathsFile.open(PathsPath, File.WRITE)
 	if error != OK:
@@ -21,6 +22,7 @@ func Save_paths(_data : Dictionary) -> void:
 	PathsFile.close()
 	
 
+# Low-level here
 func Load_paths():
 	
 	var error := PathsFile.open(PathsPath, File.READ)
