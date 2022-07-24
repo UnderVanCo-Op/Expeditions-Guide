@@ -1,7 +1,7 @@
 extends Node2D
 # This is GameManager.gd
 
-export var ToolModeToggle := false	# toggle instantiating ways on click
+export var ToolModeToggle := true	# toggle instantiating ways on click
 var playerScene = preload("res://Objects/Player/Player.tscn")
 var player
 var isPMoving := false				# shows if the player is moving at the moment
@@ -10,8 +10,9 @@ var StartPosP := Vector2.ZERO		# start position for the same interpolation
 var EndPos := Vector2.ZERO			# end position for same also
 var lastPTool = null				# ref to last points for Tool, for making sosedi, updates from Points
 var PlayerPoint = null				# ref to Point on which Player is standing
-var nextPPoint = null
+var nextPPoint = null				# additional var for movement
 var SaveMInst := SaveMaster.new()	# instance of a saving class (for paths only for now)
+var ParList := []					# only for runtime purposes, saves 2 pos-s (start and end of each Path) for fast checking
 
 # ---------- Starting methods ---------------------------------------------------------------------------
 func _ready() -> void:
@@ -88,8 +89,22 @@ func LoadGame() -> void:
 			return
 		for p in get_node("../Points").get_children():
 			if(p.name in _data.keys()):				# if point is in JSON
-				p.sosedi.append_array(_data[p.name])		# add in list
-				print("GM: Loaded some sosed: ", _data[p.name])
+				p.sosedi.append_array(_data[p.name])		# add sosedi (list) in list
+				print("GM: Loaded some sosedi: ", _data[p.name])
+				
+				# Downlying: Parlist fulling
+				for sosed in _data[p.name] as Array:	# for по всем значениям массива для этого ключа (по соседям)
+					var _adjp = get_node_or_null("../Points/" + str(sosed))	# load sosed
+					print("adjp path: ../Points/" + str(sosed))
+					if(!_adjp):
+						printerr("GM_LOAD: could not get adjacent point from save, did you messed up with file paths?)")
+						return
+					
+					if([p.position, _adjp.position] in ParList or [_adjp.position, p.position] in ParList):
+	#					print("PL: this way is already on the map, skipping...")
+						continue	# (for next adjpoint of this point)
+					else: 	
+						ParList.append([p.position, _adjp.position])
 	else:
 		printerr("GM: no save exists, so no paths was loaded")
 		
@@ -105,8 +120,34 @@ func SaveGame() -> void:
 			data[p.name] = p.sosedi
 	print("GM: data to save: ", data)
 	SaveMInst.Save_paths(data)
-#	get_tree().reload_current_scene()
+	get_tree().reload_current_scene()
 	# Other (to be done in future)
 
 
 # ---------- Other methods ------------------------------------------------------------------------------
+func CheckForExistingPath(_pathData : Array) -> bool:
+	if(ToolModeToggle):		# additional check, j.i.c.
+		var one = ParList.find(_pathData)
+		var two = ParList.find(_pathData.invert())
+		if(one != -1 or two != -1):
+			print("GM: this way is already on the map, deleting...")
+			for l in get_node("../Lines").get_children():
+				if((l.points[0] == _pathData[0] and l.points[1] == _pathData[1]) or (l.points[0] == _pathData[1] and l.points[1] == _pathData[0])):	# into 1 side and another
+					
+					l.queue_free()
+					print("GM: Path deleted! Saving game...")
+					
+					if(one != -1 ):
+						ParList.remove(one)
+					else:
+						ParList.remove(two)
+					call_deferred("SaveGame")
+					return true
+			push_error("GM_ERROR: Path in ParList, but no Line node was found!")
+			return true
+		else:
+			ParList.append(_pathData)
+			return false
+	else:
+		return false
+	

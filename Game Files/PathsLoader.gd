@@ -2,7 +2,7 @@ tool
 extends Node2D
 
 var PathScene = preload("res://Objects/Way.tscn")
-var togglePathLoading = true		# will load paths from save file on scene reload (CTRL+R), REPLACING others
+var togglePathLoading = true		# will load paths from save file on scene reload (CTRL+R), DELETING others
 
 
 func _ready() -> void:
@@ -39,20 +39,20 @@ func _ready() -> void:
 		printerr("PL: could not get Points node, no Paths will be drawn")
 		return
 	
-	var ParList := []
+	var ParList := []				# only for editor purposes
 	for p in ps.get_children():		# for each node of a point in Points
 		if(p.name in data.keys()):	# if this point is in save file
-			print("\nPL: Found some point in saved data: ", p.name, ", data: ", data[p.name])
+#			print("\nPL: Found some point in saved data: ", p.name, ", data: ", data[p.name])
 			var content = data[p.name] as Array
 			for adjps in content:
-				print("PL: Adj point '", adjps,"' found!")
+#				print("PL: Adj point '", adjps,"' found!")
 				var _adjp = get_node_or_null("../../Points/" + str(adjps))
 				if(!_adjp):
 					printerr("PL: could not get adjacent point from save, do you have old save file?")
 					return
 				
 				if([p.position, _adjp.position] in ParList or [_adjp.position, p.position] in ParList):
-					print("PL: this way is already on the map, skipping...")
+#					print("PL: this way is already on the map, skipping...")
 					continue	# (for next adjpoint of this point) 
 				
 				ParList.append([p.position, _adjp.position])
