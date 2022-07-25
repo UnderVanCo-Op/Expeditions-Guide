@@ -57,8 +57,15 @@ texture = ExtResource( 4 )
 texture_mode = 1
 script = ExtResource( 5 )
 
-[node name="Line2D4" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
-points = PoolVector2Array( 1228, 237, 1371, 921 )
+[node name="Line2D2" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+points = PoolVector2Array( 571, 794, 1371, 921 )
+default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
+texture = ExtResource( 4 )
+texture_mode = 1
+script = ExtResource( 5 )
+
+[node name="Line2D3" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+points = PoolVector2Array( 1371, 921, 1717, 472 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
 texture = ExtResource( 4 )
 texture_mode = 1

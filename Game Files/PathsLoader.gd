@@ -1,5 +1,6 @@
 tool
 extends Node2D
+# This is PathsLoader.gd, script loads paths from save into Godot Editor and saves scene
 
 var PathScene = preload("res://Objects/Way.tscn")
 var togglePathLoading = true		# will load paths from save file on scene reload (CTRL+R), DELETING others

@@ -3,7 +3,6 @@ extends StaticBody2D
 
 var PathScene = preload("res://Objects/Way.tscn")
 var sosedi := []				# where can we go from here
-var newWay = null
 onready var GM := get_node("../../GameManager")
 
 signal WayButPressed(Point)
@@ -24,9 +23,10 @@ func _on_TextureButton_pressed() -> void:
 			GM.lastPTool = self			# just update last point in GM
 			pass
 		else:				# end (there was start)
-			if(GM.CheckForExistingPath([lastP.position, self.position])):	# if path already exists, GM manages to delete it
-				lastP.sosedi.erase(self.name)
-				sosedi.erase(lastP.name)
+			if(GM.CheckForExistingPath([lastP.name, self.name])):	# if path already exists, GM manages to delete it
+#				lastP.sosedi.erase(self.name)
+#				sosedi.erase(lastP.name)
+				GM.lastPTool = null		# dont forget so set start back
 				return
 			# else we continue
 			
@@ -38,12 +38,12 @@ func _on_TextureButton_pressed() -> void:
 #			newWay.points = PoolVector2Array([self.position])		# Trick to make this thing work
 ##			print("newWay size after all actions: ", newWay.points.size())	# test print
 			
-			newWay = PathScene.instance()
+			var newWay = PathScene.instance()
 			newWay.points = PoolVector2Array([lastP.position, self.position])		# Trick to make this thing work
 #			print("PL: newWay size after all actions: ", newWay.points.size())	# test print
 				
 			get_node("../../Lines").add_child(newWay)		# add to scene
-			newWay.set_owner(get_tree().current_scene)		# required to make the node visible in the Scene tree dock and persist changes made by the tool script to the saved scene file.
+#			newWay.set_owner(get_tree().current_scene)		# required to make the node visible in the Scene tree dock and persist changes made by the tool script to the saved scene file.
 			
 			lastP.sosedi.append(name)		# append self to start sosedi's
 			sosedi.append(lastP.name)		# append start to self sosedi's
@@ -58,7 +58,7 @@ func _on_TextureButton_pressed() -> void:
 			
 			GM.SaveGame()
 			
-			get_tree().reload_current_scene()
+#			get_tree().reload_current_scene()
 			pass
 	else:
 		emit_signal("WayButPressed", self)
