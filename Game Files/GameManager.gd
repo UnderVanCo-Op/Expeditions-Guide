@@ -114,7 +114,7 @@ func SaveGame(shouldUpdate := true) -> void:
 	# Paths work
 	if(shouldUpdate):
 		UpdatePathsD()
-	print("GM: PathsData to save: ", PathsData)
+#	print("GM: PathsData to save: ", PathsData)
 	SaveMInst.Save_paths(PathsData)
 #	get_tree().reload_current_scene()	# seems to be not working
 	# Other (to be done in future)
@@ -128,6 +128,7 @@ func CheckForExistingPath(_pathData : Array) -> bool:
 			var t = PathsData[_pathData[0]]
 			if(!t):
 				print("GM: point is in PathsData, but it has no sosedis")
+				return false
 			for _p in t as Array:			# value (берём соседей)
 				if(_p == _pathData[1]):		# если конкретная точка из соседей совпала
 					print("\nGM: found adj point, path already exists! Maybe you forgot to reload? Anyway, deleting path and sosedis now...")
@@ -145,14 +146,7 @@ func CheckForExistingPath(_pathData : Array) -> bool:
 					PathsData[_pathData[1]] = values		# добавляем kv par обратно в словарь
 					
 					print("GM: sosedi from points were deleted! Saving game...")
-					SaveGame(false)
 					
-					# перезагружаем все линии в рантайме
-						
-					
-					
-					
-#					get_tree().reload_current_scene()	# seems to be not working
 					
 					# удаляем саму линию из рантайма
 					var p1 = get_node_or_null("../Points/" + str(_pathData[0]))
@@ -161,15 +155,17 @@ func CheckForExistingPath(_pathData : Array) -> bool:
 						printerr("GM: could not get both Points to delete line, return (true)")
 						return true
 					
+					p1.sosedi.erase(p2.name)
+					p2.sosedi.erase(p1.name)
+					SaveGame(true)
 					
 					for l in get_node("../Lines").get_children():
 						if((l.points[0] == p1.position and l.points[1] == p2.position) or (l.points[0] == p2.position and l.points[1] == p1.position)):	# into 1 side and another
 							
-							print("GM: Line ", l, " is going to be deleted!")
-#							l.free()
+#							print("GM: Line ", l, " is going to be deleted!")
 							l.queue_free()
 							
-							print("GM: Line also deleted!")
+#							print("GM: Line also deleted!")
 							return true
 						pass
 					printerr("GM: Line has not been found! (but anyway)")
