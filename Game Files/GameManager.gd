@@ -12,7 +12,7 @@ var lastPTool = null				# ref to last points for Tool, for making sosedi, update
 var PlayerPoint = null				# ref to Point on which Player is standing
 var nextPPoint = null				# additional var for movement
 var SaveMInst := SaveMaster.new()	# instance of a saving class (for paths only for now)
-var ParList := []					# only for runtime purposes, saves 2 pos-s (start and end of each Path) for fast checking
+var PathsData := {}					# dict of adjacent matrix (on start has values from JSON)
 
 # ---------- Starting methods ---------------------------------------------------------------------------
 func _ready() -> void:
@@ -78,76 +78,108 @@ func s_WayButPressed(_point : StaticBody2D) -> void:
 
 
 # ---------- Save and Load methods ----------------------------------------------------------------------
-# Called in _ready
+# Called in _ready()
 func LoadGame() -> void:
 	# Paths work (script part)
 	if(SaveMInst.DoesSaveExists()):
 		print("GM: Save for paths exists, loading...")
-		var _data = SaveMInst.Load_paths()
-		if(!_data):
+		PathsData.clear() 									# JIC
+		var t  = SaveMInst.Load_paths()
+		if(!t):
 			push_error("GM: loaded null data from save paths")
 			return
+		PathsData = t as Dictionary
 		for p in get_node("../Points").get_children():
-			if(p.name in _data.keys()):				# if point is in JSON
-				p.sosedi.append_array(_data[p.name])		# add sosedi (list) in list
-				print("GM: Loaded some sosedi: ", _data[p.name])
-				
-				# Downlying: Parlist fulling
-				for sosed in _data[p.name] as Array:	# for по всем значениям массива для этого ключа (по соседям)
-					var _adjp = get_node_or_null("../Points/" + str(sosed))	# load sosed
-					print("adjp path: ../Points/" + str(sosed))
-					if(!_adjp):
-						printerr("GM_LOAD: could not get adjacent point from save, did you messed up with file paths?)")
-						return
-					
-					if([p.position, _adjp.position] in ParList or [_adjp.position, p.position] in ParList):
-	#					print("PL: this way is already on the map, skipping...")
-						continue	# (for next adjpoint of this point)
-					else: 	
-						ParList.append([p.position, _adjp.position])
+			if(p.name in PathsData.keys()):					# if point is in JSON
+				p.sosedi.append_array(PathsData[p.name])	# add each sosed to the point list
+				print("GM: Loaded some sosedi: ", PathsData[p.name])
+		print("GM: PathsData after loading all points:", PathsData)
 	else:
 		printerr("GM: no save exists, so no paths was loaded")
 		
 	# Other (to be done in future)
 
-
-# For now only runs when finishing streching new way from Tool mode
-func SaveGame() -> void:
-	# Paths work
-	var data := {}
+# Called automatically in SaveGame()
+func UpdatePathsD() -> void:
+	var _data := {}
 	for p in get_node("../Points").get_children():
 		if(p.sosedi):
-			data[p.name] = p.sosedi
-	print("GM: data to save: ", data)
-	SaveMInst.Save_paths(data)
-	get_tree().reload_current_scene()
+			_data[p.name] = p.sosedi
+	
+	PathsData = _data	# JIC
+
+
+# For now only runs when finishing streching new way from Tool mode
+func SaveGame(shouldUpdate := true) -> void:
+	# Paths work
+	if(shouldUpdate):
+		UpdatePathsD()
+#	print("GM: PathsData to save: ", PathsData)
+	SaveMInst.Save_paths(PathsData)
+#	get_tree().reload_current_scene()	# seems to be not working
 	# Other (to be done in future)
 
 
 # ---------- Other methods ------------------------------------------------------------------------------
+# 
 func CheckForExistingPath(_pathData : Array) -> bool:
 	if(ToolModeToggle):		# additional check, j.i.c.
-		var one = ParList.find(_pathData)
-		var two = ParList.find(_pathData.invert())
-		if(one != -1 or two != -1):
-			print("GM: this way is already on the map, deleting...")
-			for l in get_node("../Lines").get_children():
-				if((l.points[0] == _pathData[0] and l.points[1] == _pathData[1]) or (l.points[0] == _pathData[1] and l.points[1] == _pathData[0])):	# into 1 side and another
+		if(PathsData.has(_pathData[0])):
+			var t = PathsData[_pathData[0]]
+			if(!t):
+				print("GM: point is in PathsData, but it has no sosedis")
+				return false
+			for _p in t as Array:			# value (берём соседей)
+				if(_p == _pathData[1]):		# если конкретная точка из соседей совпала
+					print("\nGM: found adj point, path already exists! Maybe you forgot to reload? Anyway, deleting path and sosedis now...")
 					
-					l.queue_free()
-					print("GM: Path deleted! Saving game...")
+					# delete path
+					var values : Array = PathsData.get(_pathData[0])	# берём соседей из словаря
+					PathsData.erase(_pathData[0])		# удаляем key-value par из словаря
+					values.erase(_pathData[1])			# удаляем нужного нам соседа
+					PathsData[_pathData[0]] = values	# добавляем kv par обратно в словарь
 					
-					if(one != -1 ):
-						ParList.remove(one)
-					else:
-						ParList.remove(two)
-					call_deferred("SaveGame")
-					return true
-			push_error("GM_ERROR: Path in ParList, but no Line node was found!")
-			return true
+					# повторяем для второй точки тоже самое
+					values = PathsData.get(_pathData[1])	# берём соседей из словаря
+					PathsData.erase(_pathData[1])			# удаляем key-value par из словаря
+					values.erase(_pathData[0])				# удаляем нужного нам соседа
+					PathsData[_pathData[1]] = values		# добавляем kv par обратно в словарь
+					
+					print("GM: sosedi from points were deleted! Saving game...")
+					
+					
+					# удаляем саму линию из рантайма
+					var p1 = get_node_or_null("../Points/" + str(_pathData[0]))
+					var p2 = get_node_or_null("../Points/" + str(_pathData[1]))
+					if(!p1 or !p2):
+						printerr("GM: could not get both Points to delete line, return (true)")
+						return true
+					
+					p1.sosedi.erase(p2.name)
+					p2.sosedi.erase(p1.name)
+					SaveGame(true)
+					
+					for l in get_node("../Lines").get_children():
+						if((l.points[0] == p1.position and l.points[1] == p2.position) or (l.points[0] == p2.position and l.points[1] == p1.position)):	# into 1 side and another
+							
+#							print("GM: Line ", l, " is going to be deleted!")
+							l.queue_free()
+							
+#							print("GM: Line also deleted!")
+							return true
+						pass
+					printerr("GM: Line has not been found! (but anyway)")
+					return true 	# JIC
+			print("GM: path dont exist!")	# overly
+			return false					# overly
 		else:
-			ParList.append(_pathData)
+			print("GM: such path has not been found!")
 			return false
 	else:
+		print("GM: Exist check skipped bcs tool mode is off")
 		return false
 	
+
+func LoadPathsFromSave() -> void:
+	
+	pass

@@ -1,6 +1,7 @@
 extends Reference
 class_name SaveMaster
 # This is SaveMaster.gd, low-level save work script
+
 const PathsPath = "res://Paths.json"
 
 var version := 1
