@@ -9,7 +9,7 @@ signal WayButPressed(Point)
 
 func _ready() -> void:
 #	print("ready of a point")
-	print("Point: ", self, ", sosedi: ", sosedi)
+#	print("Point: ", self, ", sosedi: ", sosedi)
 	pass # Replace with function body.
 
 

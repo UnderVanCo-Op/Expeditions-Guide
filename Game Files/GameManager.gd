@@ -1,7 +1,7 @@
 extends Node2D
 # This is GameManager.gd
 
-export var ToolModeToggle := true	# toggle instantiating ways on click
+export var ToolModeToggle := false	# toggle instantiating ways on click
 var playerScene = preload("res://Objects/Player/Player.tscn")
 var player
 var isPMoving := false				# shows if the player is moving at the moment
@@ -77,7 +77,7 @@ func s_WayButPressed(_point : StaticBody2D) -> void:
 		print("GM: Player is already moving, wait!")
 
 
-# ---------- Save and Load methods ----------------------------------------------------------------------
+# ---------- Save, Load and Path-related methods --------------------------------------------------------
 # Called in _ready()
 func LoadGame() -> void:
 	# Paths work (script part)
@@ -92,8 +92,8 @@ func LoadGame() -> void:
 		for p in get_node("../Points").get_children():
 			if(p.name in PathsData.keys()):					# if point is in JSON
 				p.sosedi.append_array(PathsData[p.name])	# add each sosed to the point list
-				print("GM: Loaded some sosedi: ", PathsData[p.name])
-		print("GM: PathsData after loading all points:", PathsData)
+#				print("GM: Loaded some sosedi: ", PathsData[p.name])
+#		print("GM: PathsData after loading all points:", PathsData)
 	else:
 		printerr("GM: no save exists, so no paths was loaded")
 		
@@ -116,11 +116,8 @@ func SaveGame(shouldUpdate := true) -> void:
 		UpdatePathsD()
 #	print("GM: PathsData to save: ", PathsData)
 	SaveMInst.Save_paths(PathsData)
-#	get_tree().reload_current_scene()	# seems to be not working
 	# Other (to be done in future)
 
-
-# ---------- Other methods ------------------------------------------------------------------------------
 # 
 func CheckForExistingPath(_pathData : Array) -> bool:
 	if(ToolModeToggle):		# additional check, j.i.c.
@@ -178,8 +175,7 @@ func CheckForExistingPath(_pathData : Array) -> bool:
 	else:
 		print("GM: Exist check skipped bcs tool mode is off")
 		return false
-	
 
-func LoadPathsFromSave() -> void:
-	
-	pass
+# ---------- Other methods ------------------------------------------------------------------------------
+
+
