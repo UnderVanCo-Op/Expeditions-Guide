@@ -1,6 +1,5 @@
-#tool
 extends Line2D
-# This is Way.gd
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,13 +8,14 @@ func _ready() -> void:
 		var cllsn = CollisionPolygon2D.new()
 		cllsn.polygon = poly
 		$StaticBody2D.add_child(cllsn)
-		
+		pass
 	$StaticBody2D.input_pickable = true
 	$StaticBody2D.connect("input_event", self, "InputMouse")
+	pass
 
 
 func InputMouse(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 #	print("TEST WORKED")
 	if(event.is_action_pressed("LMB")):
-		print("LMB on Path!!!")
+		print("LMB on TestLine!!!")
 	pass

@@ -4,6 +4,8 @@ extends Node2D
 export var ToolModeToggle := false	# toggle instantiating ways on click
 var playerScene = preload("res://Objects/Player/Player.tscn")
 var player
+
+# inter variables
 var isPMoving := false				# shows if the player is moving at the moment
 var interp := 0.0					# (misc) interpolation value for Player movement
 var StartPosP := Vector2.ZERO		# start position for the same interpolation
@@ -13,6 +15,9 @@ var PlayerPoint = null				# ref to Point on which Player is standing
 var nextPPoint = null				# additional var for movement
 var SaveMInst := SaveMaster.new()	# instance of a saving class (for paths only for now)
 var PathsData := {}					# dict of adjacent matrix (on start has values from JSON)
+
+# world-related variables
+var time
 
 # ---------- Starting methods ---------------------------------------------------------------------------
 func _ready() -> void:

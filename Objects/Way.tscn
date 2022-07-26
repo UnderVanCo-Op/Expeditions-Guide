@@ -8,3 +8,5 @@ default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
 texture = ExtResource( 1 )
 texture_mode = 1
 script = ExtResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
