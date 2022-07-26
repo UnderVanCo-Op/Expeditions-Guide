@@ -45,7 +45,7 @@ func Load_paths():
 #		return
 	
 	var data : Dictionary = res
-	print("SaveMaster: received data: ", data)
+	print("SM: received data: ", data)
 	return data
 
 

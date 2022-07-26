@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://UI/Fade.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/TItle Screen/Title Screen.gd" type="Script" id=2]
+[ext_resource path="res://UI/UI_Theme1.tres" type="Theme" id=3]
+[ext_resource path="res://UI/Fonts/Manrope-Medium.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[node name="Title Screen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MenuC" type="VBoxContainer" parent="."]
+anchor_left = 0.109375
+anchor_top = 0.0694444
+anchor_right = 0.890625
+anchor_bottom = 0.930556
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Title" type="Label" parent="MenuC"]
+margin_right = 1500.0
+margin_bottom = 110.0
+custom_colors/font_color = Color( 0.505882, 0.937255, 0.262745, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Expeditions Guide"
+align = 1
+valign = 1
+
+[node name="MarginC" type="MarginContainer" parent="MenuC"]
+margin_top = 114.0
+margin_right = 1500.0
+margin_bottom = 814.0
+rect_min_size = Vector2( 450, 700 )
+
+[node name="ColorRect" type="ColorRect" parent="MenuC/MarginC"]
+margin_left = 550.0
+margin_top = 400.0
+margin_right = 950.0
+margin_bottom = 700.0
+rect_min_size = Vector2( 400, 300 )
+size_flags_horizontal = 4
+size_flags_vertical = 8
+color = Color( 0.882353, 0.882353, 0.87451, 0.141176 )
+
+[node name="ButtonsC" type="VBoxContainer" parent="MenuC/MarginC/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+custom_constants/separation = 30
+
+[node name="Start" type="Button" parent="MenuC/MarginC/ColorRect/ButtonsC"]
+margin_right = 360.0
+margin_bottom = 61.0
+theme = ExtResource( 3 )
+text = "Start Game"
+
+[node name="Options" type="Button" parent="MenuC/MarginC/ColorRect/ButtonsC"]
+margin_top = 91.0
+margin_right = 360.0
+margin_bottom = 152.0
+theme = ExtResource( 3 )
+text = "Options"
+
+[node name="Quit" type="Button" parent="MenuC/MarginC/ColorRect/ButtonsC"]
+margin_top = 182.0
+margin_right = 360.0
+margin_bottom = 243.0
+theme = ExtResource( 3 )
+text = "Quit"
+
+[node name="Version" type="Label" parent="MenuC"]
+margin_top = 818.0
+margin_right = 1500.0
+margin_bottom = 832.0
+
+[node name="Fade" parent="." instance=ExtResource( 1 )]
+
+[connection signal="pressed" from="MenuC/MarginC/ColorRect/ButtonsC/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="MenuC/MarginC/ColorRect/ButtonsC/Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="MenuC/MarginC/ColorRect/ButtonsC/Quit" to="." method="_on_Quit_pressed"]
