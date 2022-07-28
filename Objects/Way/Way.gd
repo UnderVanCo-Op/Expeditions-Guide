@@ -1,4 +1,3 @@
-#tool
 extends Line2D
 # This is Way.gd
 
@@ -11,6 +10,7 @@ func _ready() -> void:
 		$StaticBody2D.add_child(cllsn)
 		
 	$StaticBody2D.input_pickable = true
+#warning-ignore:RETURN_VALUE_DISCARDED
 	$StaticBody2D.connect("input_event", self, "InputMouse")
 
 

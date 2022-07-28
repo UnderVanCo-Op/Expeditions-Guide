@@ -1,7 +1,7 @@
 extends StaticBody2D
 # This is Point.gd
 
-var PathScene = preload("res://Objects/Way.tscn")
+var PathScene = preload("res://Objects/Way/Way.tscn")
 var sosedi := []				# where can we go from here
 onready var GM := get_node("../../GameManager")
 

@@ -3,6 +3,7 @@ extends Control
 
 func _ready() -> void:
 	get_tree().paused = false # принудительно убираем паузу физики и UI на всякий
+#warning-ignore:RETURN_VALUE_DISCARDED
 	$Fade/AnimationPlayer.connect("animation_finished", self, "FadeAnimFinished")
 	pass
 

@@ -1,4 +1,8 @@
 extends Line2D
+# This is TestLine2d.gd, script related to testing functionality of lines in the Andrey.tscn test scene
+
+var FirstPoint : StaticBody2D = null
+var SecondPoint : StaticBody2D = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -10,6 +14,7 @@ func _ready() -> void:
 		$StaticBody2D.add_child(cllsn)
 		pass
 	$StaticBody2D.input_pickable = true
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	$StaticBody2D.connect("input_event", self, "InputMouse")
 	pass
 

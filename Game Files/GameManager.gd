@@ -1,6 +1,8 @@
 extends Node2D
 # This is GameManager.gd
 
+# warning-ignore-all:RETURN_VALUE_DISCARDED
+
 export var ToolModeToggle := false	# toggle instantiating ways on click
 var playerScene = preload("res://Objects/Player/Player.tscn")
 var player
@@ -54,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		interp += delta * 0.7
 		player.position = StartPosP.linear_interpolate(EndPos, interp)	# easy linear interpolation
 		if(interp >= 1):
-			print("GM: Target reached, stopping movement")
+#			print("GM: Target reached, stopping movement")
 			interp = 0.0		# just in case
 			PlayerPoint = nextPPoint
 			isPMoving = false
@@ -74,7 +76,7 @@ func s_WayButPressed(_point : StaticBody2D) -> void:
 			EndPos = _point.position
 			nextPPoint = _point
 			isPMoving = true
-			print("GM: starting movement, StartPosP:", StartPosP, " EndPos:", EndPos)
+#			print("GM: starting movement, StartPosP:", StartPosP, " EndPos:", EndPos)
 		else:
 			print("GM: Point is not a neighbour, can not move!!!")
 			return
@@ -104,7 +106,7 @@ func LoadGame() -> void:
 		
 	# Other (to be done in future)
 
-# Called automatically in SaveGame()
+# Called automatically in SaveGame() if no argument is passed
 func UpdatePathsD() -> void:
 	var _data := {}
 	for p in get_node("../Points").get_children():

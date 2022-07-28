@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/WayTile3.png-f063421522a7d9910c60da2dfd64c015.stex"
+path="res://.import/WayTile1.png-92c0bc9444c827fa20a2b479fe4c09b1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/WayTile3.png"
-dest_files=[ "res://.import/WayTile3.png-f063421522a7d9910c60da2dfd64c015.stex" ]
+source_file="res://Objects/Way/WayTile1.png"
+dest_files=[ "res://.import/WayTile1.png-92c0bc9444c827fa20a2b479fe4c09b1.stex" ]
 
 [params]
 
