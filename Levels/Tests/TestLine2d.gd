@@ -21,6 +21,11 @@ func _ready() -> void:
 
 func InputMouse(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 #	print("TEST WORKED")
-	if(event.is_action_pressed("LMB")):
+	if(event.is_action_pressed("LMB")):	
 		print("LMB on TestLine!!!")
 	pass
+
+
+#func _exit_tree() -> void:
+#	print("Testline exit tree worked!")
+#	pass

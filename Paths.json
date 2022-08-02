@@ -1,1 +1,1 @@
-{"Start":["Point2","Point3"],"Point3":["Start","Point5"],"Point2":["Start","Point4"],"Point4":["Point5","Point2"],"Point5":["Point4","Point3"]}
+{"Start":["Point3","PointLeftDown"],"Point3":["Start","Point5","PointLeftDown"],"PointLeftDown":["Start","Point4","Point3"],"Point4":["PointLeftDown"],"Point5":["Point3"]}

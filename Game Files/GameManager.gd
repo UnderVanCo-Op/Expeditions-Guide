@@ -99,6 +99,7 @@ func LoadGame() -> void:
 		for p in get_node("../Points").get_children():
 			if(p.name in PathsData.keys()):					# if point is in JSON
 				p.sosedi.append_array(PathsData[p.name])	# add each sosed to the point list
+				
 #				print("GM: Loaded some sosedi: ", PathsData[p.name])
 #		print("GM: PathsData after loading all points:", PathsData)
 	else:
@@ -186,3 +187,9 @@ func CheckForExistingPath(_pathData : Array) -> bool:
 # ---------- Other methods ------------------------------------------------------------------------------
 
 
+# ---------- Ending methods ------------------------------------------------------------------------------
+
+func _exit_tree() -> void:
+#	print("GM exit_tree reached!")
+	SaveGame()		# update on quit
+	pass

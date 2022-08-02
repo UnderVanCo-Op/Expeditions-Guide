@@ -32,7 +32,8 @@ func _on_TextureButton_pressed() -> void:
 			var newWay = PathScene.instance()
 			newWay.points = PoolVector2Array([lastP.position, self.position])		# Trick to make this thing work
 #			print("PL: newWay size after all actions: ", newWay.points.size())	# test print
-				
+			
+			
 			get_node("../../Lines").add_child(newWay)		# add to scene
 			lastP.sosedi.append(name)		# append self to start sosedi's
 			sosedi.append(lastP.name)		# append start to self sosedi's

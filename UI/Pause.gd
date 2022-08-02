@@ -3,6 +3,11 @@ extends Control
 
 # PAUSE MENU
 
+func _ready() -> void:
+	self.hide()
+	pass
+
+
 func _input(event):
 	if event.is_action_pressed("Pause"):	# в этом случае использования action Pause переключает физику (и вкл и выкл)
 		var new_pause_state = not get_tree().paused

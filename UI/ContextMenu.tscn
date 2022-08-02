@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Graphics/Illustrator/UI_ProgressBar1.png" type="Texture" id=1]
+[ext_resource path="res://Graphics/Illustrator/1x/UI_PB_Fulling1.png" type="Texture" id=2]
+
+[node name="ContextMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1629.0
+margin_bottom = -920.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.294118, 0.266667, 0.329412, 0.466667 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.0687285
+anchor_top = 0.125
+anchor_right = 0.931271
+anchor_bottom = 0.875
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="VBoxContainer"]
+margin_right = 251.0
+margin_bottom = 42.0
+value = 50.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 2 )
+texture_progress_offset = Vector2( 2, 2 )
