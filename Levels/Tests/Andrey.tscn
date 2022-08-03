@@ -58,35 +58,35 @@ script = ExtResource( 6 )
 
 [node name="Lines" type="Node2D" parent="."]
 
-[node name="WayStartPoint4" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+[node name="WayStartPoint3" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
 points = PoolVector2Array( 209, 261, 1228, 237 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
 texture = SubResource( 2 )
 texture_mode = 1
 script = ExtResource( 5 )
 
-[node name="WayStartPointLeftDown2" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+[node name="WayStartPointLeftDown" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
 points = PoolVector2Array( 209, 261, 571, 794 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
 texture = SubResource( 2 )
 texture_mode = 1
 script = ExtResource( 5 )
 
-[node name="WayPoint3Point6" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+[node name="WayPoint3Point5" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
 points = PoolVector2Array( 1228, 237, 1717, 472 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
 texture = SubResource( 2 )
 texture_mode = 1
 script = ExtResource( 5 )
 
-[node name="WayPoint3PointLeftDown2" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+[node name="WayPoint3PointLeftDown" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
 points = PoolVector2Array( 1228, 237, 571, 794 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
 texture = SubResource( 2 )
 texture_mode = 1
 script = ExtResource( 5 )
 
-[node name="WayPointLeftDownPoint5" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+[node name="WayPointLeftDownPoint4" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
 points = PoolVector2Array( 571, 794, 1371, 921 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
 texture = SubResource( 2 )

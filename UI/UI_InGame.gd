@@ -2,7 +2,7 @@ extends CanvasLayer
 # This is UI_InGame.gd, script should handle all GUI actions during the game (Except Pause)
 
 func _ready() -> void:
-	SignalWork()
+#	SignalWork()
 	pass # Replace with function body.
 
 
