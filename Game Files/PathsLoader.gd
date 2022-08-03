@@ -2,7 +2,7 @@ tool
 extends Node2D
 # This is PathsLoader.gd, script loads paths from save into Godot Editor and saves scene
 
-var PathScene = preload("res://Objects/Way.tscn")
+var PathScene = preload("res://Objects/Way/Way.tscn")
 var togglePathLoading = true		# will load paths from save file on scene reload (CTRL+R), DELETING others
 
 
@@ -40,8 +40,8 @@ func _ready() -> void:
 		printerr("PL: could not get Points node, no Paths will be drawn")
 		return
 	
-	var ParList := []				# only for editor purposes
-	for p in ps.get_children():		# for each node of a point in Points
+	var ParList := []				# only for editor purposes, проверка по парам позиций
+	for p in ps.get_children():		# for each point in Points
 		if(p.name in data.keys()):	# if this point is in save file
 #			print("\nPL: Found some point in saved data: ", p.name, ", data: ", data[p.name])
 			var content = data[p.name] as Array
@@ -59,6 +59,7 @@ func _ready() -> void:
 				ParList.append([p.position, _adjp.position])
 				var newWay = PathScene.instance()
 				newWay.points = PoolVector2Array([p.position, _adjp.position])		# Trick to make this thing work
+				newWay.name = "Way" + str(p.name) + str(adjps)
 #				print("PL: newWay size after all actions: ", newWay.points.size())	# test print
 				
 				get_node("../../Lines").add_child(newWay)				# add to scene

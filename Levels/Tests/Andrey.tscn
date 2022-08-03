@@ -1,20 +1,24 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Objects/Point/Point.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Objects/Way.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Way/Way.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game Files/GameManager.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/WayTile3.png" type="Texture" id=4]
-[ext_resource path="res://Objects/Way.gd" type="Script" id=5]
+[ext_resource path="res://Objects/Way/WayTile3.png" type="Texture" id=4]
+[ext_resource path="res://Objects/Way/Way.gd" type="Script" id=5]
+[ext_resource path="res://Levels/Tests/TestLine2d.gd" type="Script" id=6]
+[ext_resource path="res://UI/UI_InGame.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 511, 43, -223.678, 22.2838, 223.678, -22.2838, 754, 236, 0, 0, 0, 0, 657, 515 )
 }
 
+[sub_resource type="StreamTexture" id=2]
+flags = 6
+load_path = "res://.import/WayTile3.png-f063421522a7d9910c60da2dfd64c015.stex"
+
 [node name="Andrey Test" type="Node2D"]
 position = Vector2( 0, 1 )
-
-[node name="GameManager" parent="." instance=ExtResource( 3 )]
 
 [node name="Points" type="Node2D" parent="."]
 
@@ -24,7 +28,7 @@ position = Vector2( 209, 261 )
 [node name="Point3" parent="Points" instance=ExtResource( 1 )]
 position = Vector2( 1228, 237 )
 
-[node name="Point2" parent="Points" instance=ExtResource( 1 )]
+[node name="PointLeftDown" parent="Points" instance=ExtResource( 1 )]
 position = Vector2( 571, 794 )
 
 [node name="Point4" parent="Points" instance=ExtResource( 1 )]
@@ -39,7 +43,8 @@ position = Vector2( 1717, 472 )
 position = Vector2( -1125, 359 )
 curve = SubResource( 1 )
 
-[node name="Line2D" type="Line2D" parent="Ways"]
+[node name="TestLine2d" type="Line2D" parent="Ways"]
+position = Vector2( 492, 696 )
 points = PoolVector2Array( -355, 65, -391, 253, -336, 290, -224, 195 )
 default_color = Color( 1, 0.996078, 0.964706, 1 )
 texture = ExtResource( 4 )
@@ -47,40 +52,47 @@ texture_mode = 1
 joint_mode = 2
 begin_cap_mode = 1
 end_cap_mode = 1
+script = ExtResource( 6 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Ways/TestLine2d"]
 
 [node name="Lines" type="Node2D" parent="."]
 
-[node name="Line2D5" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
-points = PoolVector2Array( 209, 261, 571, 794 )
-default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
-texture = ExtResource( 4 )
-texture_mode = 1
-script = ExtResource( 5 )
-
-[node name="Line2D6" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+[node name="WayStartPoint3" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
 points = PoolVector2Array( 209, 261, 1228, 237 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
-texture = ExtResource( 4 )
+texture = SubResource( 2 )
 texture_mode = 1
 script = ExtResource( 5 )
 
-[node name="Line2D7" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+[node name="WayStartPointLeftDown" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+points = PoolVector2Array( 209, 261, 571, 794 )
+default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
+texture = SubResource( 2 )
+texture_mode = 1
+script = ExtResource( 5 )
+
+[node name="WayPoint3Point5" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
 points = PoolVector2Array( 1228, 237, 1717, 472 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
-texture = ExtResource( 4 )
+texture = SubResource( 2 )
 texture_mode = 1
 script = ExtResource( 5 )
 
-[node name="Line2D8" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+[node name="WayPoint3PointLeftDown" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
+points = PoolVector2Array( 1228, 237, 571, 794 )
+default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
+texture = SubResource( 2 )
+texture_mode = 1
+script = ExtResource( 5 )
+
+[node name="WayPointLeftDownPoint4" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
 points = PoolVector2Array( 571, 794, 1371, 921 )
 default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
-texture = ExtResource( 4 )
+texture = SubResource( 2 )
 texture_mode = 1
 script = ExtResource( 5 )
 
-[node name="Line2D9" type="Line2D" parent="Lines" instance=ExtResource( 2 )]
-points = PoolVector2Array( 1371, 921, 1717, 472 )
-default_color = Color( 0.984314, 0.984314, 0.92549, 1 )
-texture = ExtResource( 4 )
-texture_mode = 1
-script = ExtResource( 5 )
+[node name="GameManager" parent="." instance=ExtResource( 3 )]
+
+[node name="UI_InGame" parent="." instance=ExtResource( 7 )]

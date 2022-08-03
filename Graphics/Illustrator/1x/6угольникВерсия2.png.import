@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/WayTile1.png-091f0c78689240e6bce19f375c2c68a3.stex"
+path="res://.import/6угольникВерсия2.png-cfc15aa281b7d35662710a27477b5914.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/WayTile1.png"
-dest_files=[ "res://.import/WayTile1.png-091f0c78689240e6bce19f375c2c68a3.stex" ]
+source_file="res://Graphics/Illustrator/1x/6угольникВерсия2.png"
+dest_files=[ "res://.import/6угольникВерсия2.png-cfc15aa281b7d35662710a27477b5914.stex" ]
 
 [params]
 
@@ -19,8 +19,8 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
-flags/filter=true
+flags/repeat=0
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
