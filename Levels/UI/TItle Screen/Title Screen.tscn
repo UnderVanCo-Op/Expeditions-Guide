@@ -1,20 +1,20 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/Fade.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Levels/TItle Screen/Title Screen.gd" type="Script" id=2]
+[ext_resource path="res://UI/Fonts/Manrope-Medium.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://UI/UI_Theme1.tres" type="Theme" id=3]
-[ext_resource path="res://UI/Fonts/Manrope-Medium.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Levels/UI/TItle Screen/Title Screen.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 4 )
+font_data = ExtResource( 2 )
 
 [node name="Title Screen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0

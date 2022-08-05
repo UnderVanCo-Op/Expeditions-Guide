@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/UI_Theme1.tres" type="Theme" id=1]
+[ext_resource path="res://Levels/UI/LevelSelect.gd" type="Script" id=2]
+[ext_resource path="res://UI/LevelSelectBaseB.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/Fade.tscn" type="PackedScene" id=4]
+
+[node name="LevelSelect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.188235, 0.188235, 0.219608, 1 )
+
+[node name="MarginC" type="MarginContainer" parent="."]
+anchor_left = 0.34375
+anchor_top = 0.314815
+anchor_right = 0.65625
+anchor_bottom = 0.685185
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxC" type="VBoxContainer" parent="MarginC"]
+margin_right = 600.0
+margin_bottom = 399.0
+
+[node name="Label" type="Label" parent="MarginC/VBoxC"]
+margin_right = 600.0
+margin_bottom = 55.0
+theme = ExtResource( 1 )
+text = "Select level:"
+align = 1
+
+[node name="HBoxC" type="HBoxContainer" parent="MarginC/VBoxC"]
+margin_left = 200.0
+margin_top = 59.0
+margin_right = 400.0
+margin_bottom = 259.0
+size_flags_horizontal = 6
+
+[node name="1B" parent="MarginC/VBoxC/HBoxC" instance=ExtResource( 3 )]
+
+[node name="BackToMenuB" type="Button" parent="."]
+margin_left = 97.0
+margin_top = 55.0
+margin_right = 282.0
+margin_bottom = 115.0
+theme = ExtResource( 1 )
+text = "Back to Menu"
+
+[node name="Fade" parent="." instance=ExtResource( 4 )]
+
+[connection signal="pressed" from="BackToMenuB" to="." method="_on_BackToMenuB_pressed"]

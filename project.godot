@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Expeditions Guide"
-run/main_scene="res://Levels/TItle Screen/Title Screen.tscn"
+run/main_scene="res://Levels/UI/TItle Screen/Title Screen.tscn"
 config/icon="res://icon.png"
 
 [autoload]

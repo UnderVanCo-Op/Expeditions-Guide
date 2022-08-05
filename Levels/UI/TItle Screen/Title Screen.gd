@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func FadeAnimFinished(anim_name) -> void:
 	print("TS: fade anim finished")
-	Global.goto_scene("res://Levels/Tests/Andrey.tscn")
+	Global.goto_scene("res://Levels/UI/LevelSelect.tscn")
 	pass
 
 
